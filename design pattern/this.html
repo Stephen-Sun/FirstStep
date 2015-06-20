@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>this-call-apply</title>
+</head>
+
+<body>
+
+	<script type="text/javascript">
+    /*
+	 *1.作为对象的方法调用
+	 *当函数作为对象的方法被调用时，this指向该对象
+	*/
+    function demo1() {
+    	var obj = {
+    		a: 1,
+    		getA: function() {
+    				console.log(this === obj); //输出true
+    				console.log(this.a);//1
+    			} 
+    	}
+
+    	obj.getA();
+    }
+
+
+    /**
+	 *2.当作为普通函数调用
+	 *当函数不作为对象的属性被调用时，也就是我们常说的普通函数方式，此时的this总是指向全局对象，浏览器中即window
+	*/
+    function demo2() {
+        window.name = 'globalName';
+        var getName = function() {
+            return this.name
+        }
+        console.log(getName());//global
+
+        window.name2 = 'globalName2';
+        var myObj = {
+            name: 'stephen',
+            getName: function() {
+                return this.name;
+            }
+        }
+        var getName = myObj.getName;
+        console.log(getName());//global
+    }
+   
+
+    /**
+     * 3.构造器调用
+     * new运算符调用函数时，该函数总会返回一个对象，this就指向这个会返回的对象
+     */
+    function demo3(){
+    	var MyClass = function(){
+    		this.name='stephen';
+    	}
+    	var obj = new MyClass();
+    	console.log(obj.name);//stephen
+    }
+
+    /**
+     * 4.Function.prototype.call or Function.prototype.apply
+     * 可以动态改变传入函数的this
+     */
+    function demo4(){
+    	var obj = {
+    		name:'stephen',
+    		getName:function(){
+    			return this.name;
+    		}
+    	}
+    	var obj2={
+    		name:'anne'
+    	}
+    	console.log(obj.getName());
+    	console.log(obj.getName.call(obj2));
+    }
+    
+    </script>
+</body>
+
+</html>

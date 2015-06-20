@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prototype原型模式</title>
+</head>
+<body>
+<p>
+	原型模式是用于创建对象的一种模式
+</p>
+<p>
+	通过克隆来创建对象，真正的目的不是需要得到一个一模一样的对象，而是提供一种便捷的方式去创建某个类型的对象，克隆只是手段
+</p>
+<p>原型编程泛型包括以下基本规则</p>
+<ul>
+	<li>
+		所有的数据都是对象
+	</li>
+	<li>
+		要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它
+	</li>
+	<li>
+		对象会记住它的原型
+	</li>
+	<li>
+		如果对象无法响应某个请求，它会把这个请求委托给它自己的原型
+	</li>
+</ul>
+<script type="text/javascript">
+	//ES5
+	var Plane = function(){
+		this.blood = 100;
+		this.attackLevel = 1;
+		this.defenseLevel = 1;
+	};
+	//not support ES5
+	/*Object.create = Object.create || function(obj){
+		var F = function(){};
+		F.prototype = obj;
+		return new F();
+	}*/
+
+	var plane = new Plane();
+	plane.blood=500;
+	plane.attackLevel=10;
+	plane.defenseLevel=7;
+
+	var clonePlane = Object.create(plane);
+	console.log(clonePlane);
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>call and apply</title>
+</head>
+<body>
+<p>apply和call作用一模一样,区别仅在于传入参数形式的不同</p>
+<p>apply第一个参数指定了函数体内的this对象的指向,第二个参数为集合</p>
+<p>call传入的参数数量不固定，是包装在apply上面的一颗语法糖</p>
+<p>当我们传入的第一个参数为null，函数体内的this会指向默认的宿主对象，严格模式下还是null</p>
+
+<script type="text/javascript">
+/**
+ * apply和call方法演示
+*/
+function demo() {
+	var func = function(a, b, c) {
+		console.log([a, b, c]); //1,2,3
+	};
+	func.apply(null, [1, 2, 3]);
+	func.call(null, 1, 2, 3);
+}
+
+/**
+ * call和apply的用途
+ * 改变this指向
+ */
+function demo1() {
+	var obj1={
+		name:'stephen'
+	}
+	var obj2 ={
+		name:'anne'
+	}
+	window.name='window';
+	var getName = function(){
+		console.log(this.name);
+	}
+	getName();
+	getName.call(obj1);
+	getName.call(obj2);
+}
+/**
+ * function.prototype.bind
+ */
+function demo2() {
+	var obj = {
+		name: 'stephen'
+	}
+	var func = function(){
+		console.log(this.name);
+	}.bind(obj);
+	func();
+}
+
+/**
+ * 借用其他对象的方法
+ * 借用构造函数
+ */
+function demo3(){
+	var A = function(name){
+		this.name=name;
+	}
+	var B= function(){
+		A.apply(this,arguments);
+	}
+	B.prototype.getName= function(){
+		return this.name;
+	}
+	var b = new B('stephen');
+	console.log(b.getName());
+}
+
+</script>
+</body>
+</html>
