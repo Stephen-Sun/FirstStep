@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>closure</title>
+</head>
+<body>
+	<div>1</div>
+	<div>2</div>
+	<div>3</div>
+	<div>4</div>
+	<div>5</div>
+	<p>闭包的形成与变量的作用域以及变量的生存周期密切相关</p>
+	<p>闭包可以封装变量，把一些不需要暴露在全局的变量封装成私有变量</p>
+	<p>闭包还可以延续局部变量的寿命</p>
+	<script>
+		function demo1() {
+			var func = function(){
+				var a = 1
+				return function(){
+					a++;
+					alert(a);
+				}
+			}
+
+			var f = func();
+		f();//2
+		f();//3
+		f();//4
+		f();//5
+}
+
+function demo2() {
+	var nodes = document.getElementsByTagName('div');
+	for (var i = 0; i < nodes.length; i++) {
+		(function(i) {
+			nodes[i].onclick = function() {
+				console.log(i);
+			}
+		})(i);
+	};
+}
+
+function encapsulateDemo(){
+	var mult = (function(){
+		var cache ={};
+		return function(){
+			var args = Array.prototype.join.call(arguments,',');
+			if(args in cache){
+				return cache[args];
+			}
+			var a =1;
+			for (var i = 0; i < arguments.length; i++) {
+				a = a* arguments[i];
+			};
+			return cache[args]=a;
+		}
+	})();
+}
+</script>
+</body>
+</html>

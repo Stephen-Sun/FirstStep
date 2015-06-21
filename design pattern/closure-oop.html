@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>closure-oop</title>
+</head>
+<body>
+	<script>
+	function demo1closure() {
+		var extent = function() {
+			var value = 0;
+			return {
+				call: function() {
+					value++;
+					console.log(value);
+				}
+				
+			}
+		}
+		var extent = extent();
+		extent.call();
+		extent.call();
+		extent.call();
+	}
+	
+	function demo1OOP(){
+		var extent ={
+			value:0,
+			call:function(){
+				this.value++;
+				console.log(this.value);
+			}
+		}
+		extent.call();
+		extent.call();
+		extent.call();
+	}
+
+	function demo1OOP2(){
+		var Extent = function(){
+			this.value=0;
+		}
+		Extent.prototype.call=function(){
+			this.value++;
+			console.log(this.value);
+		}
+
+		var extent= new Extent();
+		extent.call();
+		extent.call();
+		extent.call();
+	}
+
+	</script>
+</body>
+</html>
